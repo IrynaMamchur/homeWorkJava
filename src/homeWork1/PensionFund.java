@@ -8,10 +8,6 @@ public class PensionFund {
     private int averagePensionInStage = 1500;
     final String dateOfCreation;
 
-    public PensionFund(String dateOfCreation) {
-        this.dateOfCreation = dateOfCreation;
-    }
-
     public PensionFund(String name, boolean state, String dateOfCreation) {
         this.name = name;
         this.state = state;
