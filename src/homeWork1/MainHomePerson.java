@@ -5,27 +5,18 @@ package homeWork1;
 public class MainHomePerson {
 
     public static void main(String[] args) {
+        Pensioner person = new Pensioner("Andrey", 72, 1.82, 78.3, true);
+        Worker  firstPerson= new Worker("Nikolya", 17, 1.73, 59, true);
+        Worker secondPerson = new Worker("Dmytro", 43, 1.74, 62, true);
+        Worker thirdPerson = new Worker("Diana", 23, 1.68, 52.4, false);
+        Pensioner forPerson = new Pensioner("Andrea", 65, 1.56, 58.3, false);
 
-        Person person = new Person("Andrey", 72, 182, 68, true, 500);
-        Person secondPerson = new Person();
-        Person thirdPerson = new Person("Nikolya", 17, 173, 59, true, 100);
-        Person forPerson = new Person("Dmytro", 43, 174, 62, true, 1000);
-        Person fivePerson = new Person("Diana", 23, 168, 52, false, 2000);
-        Person sexPerson = new Person("Andrea", 65, 156, 58, false, 600);
 
         person.info();
-        secondPerson.info();
-        thirdPerson.info();
-        forPerson.info();
-        fivePerson.info();
-        sexPerson.info();
+        System.out.println( firstPerson.getName() + " получает " + firstPerson.getMoney(1200));
 
-        person.goWork();
-        thirdPerson.goWork();
-        forPerson.goWork();
-        fivePerson.goWork();
-
-        System.out.println("Он получает " + forPerson.getMoney());
+        PensionFund firstPensionFund = new PensionFund("Better PF", false, "21.10.1998");
+        System.out.println(person.calculatePension(firstPensionFund, 72, 7000, 1500));
 
     }
 }
