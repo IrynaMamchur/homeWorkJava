@@ -1,83 +1,100 @@
 package homeWork1;
 
+import java.util.Objects;
+
 public class PensionFund {
-
-    final static double PENSION_FACTOR = 0.02;
-
+    public final static double PENSION_FACTOR = 0.02;
     private String name;
-
-    private boolean state;
-
-    private String dateOfCreation;
-
+    private boolean isState;
     private int ageWork;
+    private final static double AVERAGY_SALARY = 1500;
+    private double minSalary;
+    private double maxSalary;
+    private final String dateOfCreation;
 
-    double minSalary;
-
-    double maxSalary;
-
-    private static int averagePensionInStage = 1500;
-
-    final String dateOfCreationStatePenFund = "15.12.2022";
-    public PensionFund(String dateOfCreation) {
-        this.dateOfCreation =dateOfCreationStatePenFund;
-    }
-
-    public PensionFund(String name, boolean state, String dateOfCreation) {
+    public PensionFund(String name, boolean isState, String dateOfCreation) {
         this.name = name;
-        this.state = state;
-        if (state) {
-            this.dateOfCreation = dateOfCreationStatePenFund;
-        } else {
-            this.dateOfCreation = dateOfCreation;
-        }
+        this.isState = isState;
+        this.dateOfCreation = dateOfCreation;
     }
 
-    public void pensionCalculation(int ageWork) {
-        if (state) {
-            double averageValue = AverageValueUtils.averageValueOfTwoNumbers(1200, 7000);
-            double valuePension = averageValue * PENSION_FACTOR * ageWork;
-            System.out.println("Пенсия равна " + valuePension);
-        } else {
-            double averageValue = AverageValueUtils.averageValueOfThreeNumbers(1200, 7000);
-            double valuePension = averageValue * PENSION_FACTOR * ageWork;
-            System.out.println("Пенсия равна " + valuePension);
-        }
-        }
-
-    public void pensionCalculation1(double minSalary, double maxSalary, int ageWork) {
-        if (state) {
-
-            double valuePension = (minSalary + maxSalary)/2 * PENSION_FACTOR * ageWork;
-            System.out.println("Пенсия равна " + valuePension);
-        } else {
-            double valuePension = (minSalary + maxSalary + averagePensionInStage)/3  * PENSION_FACTOR * ageWork;
-            System.out.println("Пенсия равна " + valuePension);
-        }
+    public String getName() {
+        return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isState() {
+        return isState;
+    }
+
+    public void setState(boolean state) {
+        isState = state;
+    }
+
+    public int getAgeWork() {
+        return ageWork;
+    }
+
+    public void setAgeWork(int ageWork) {
+        this.ageWork = ageWork;
+    }
+
+    public double getMinSalary() {
+        return minSalary;
+    }
+
+    public void setMinSalary(double minSalary) {
+        this.minSalary = minSalary;
+    }
+
+    public double getMaxSalary() {
+        return maxSalary;
+    }
+
+    public void setMaxSalary(double maxSalary) {
+        this.maxSalary = maxSalary;
+    }
+
+    public String getDateOfCreation() {
+        return dateOfCreation;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PensionFund that = (PensionFund) o;
+        return isState == that.isState && ageWork == that.ageWork && Double.compare(that.minSalary, minSalary) == 0 && Double.compare(that.maxSalary, maxSalary) == 0 && Objects.equals(name, that.name) && Objects.equals(dateOfCreation, that.dateOfCreation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, isState, ageWork, minSalary, maxSalary, dateOfCreation);
     }
 
 
+    public double pensionCalculation(int ageWork, double maxSalary, double minSalary) {
+        double averageValue;
+        if (isState) {
+            averageValue = AverageValueUtils.averageValueOfTwoNumbers(minSalary, maxSalary);
+
+        } else {
+            averageValue = AverageValueUtils.averageValueOfThreeNumbers(minSalary, maxSalary, AVERAGY_SALARY);
+        }
+        return averageValue * PENSION_FACTOR * ageWork;
+    }
+
+}
 
 
 
 
-    //4) Добавьте метод расчета пенсии, который принимает параметры:
-    // сколько лет отработал человек, сколько зарабатывал минимально,
-    // сколько зарабатывал максимально.
-    // Ответ ВОЗВРАЩАЕТСЯ в виде числа с помощью return
-    //
-    //
-    //Этот метод должен быть реализован так:
-    //
-    //
-    //а) Если фонд государственный, тогда метод вызывает класс-утилиту
-    // и находит среднее значение между максимальной и минимальной зп.
-    // Потом это значение умножает на коэффициент пенсии и на количество лет
-    //
-    //
-    //б) Если фонд НЕгосударственный, тогда метод вызывает класс-утилиту и
-    // находит среднее значение между максимальной,
-    // минимальной зп и средним значение пенсии в стране - 1500. Потом это значение умножает на коэффициент пенсии и на количество лет.
+
+
+
+
+
 

@@ -1,95 +1,94 @@
 package homeWork1;
 
-public class Person {
+import java.util.Objects;
 
-    private String  name;
+public abstract class Person {
 
+
+    private String name;
     private int age;
-
-    private int growth;
-
-    private int weight;
-
-    private boolean man;
-
-    private int money;
-
-    private String namePensionFund;
-
-    private double minSalary;
-
-    private double maxSalary;
-
-    final static double PENSION_FACTOR = 0.02;
-
-    private boolean state;
-
-    private int ageWork;
-
-    private static int averagePensionInStage = 1500;
+    private double growth;
+    private double weight;
+    private boolean isMan;
 
 
-
-    public Person(String name, int age, int growth, int weight, boolean man, int money, String namePensionFund, boolean state, double minSalary, double maxSalary, int ageWork ) {
+    public Person(String name, int age, double growth, double weight, boolean isMan) {
         this.name = name;
         this.age = age;
         this.growth = growth;
         this.weight = weight;
-        this.man = man;
-        this.money = money;
-        this.minSalary = minSalary;
-        this.maxSalary = maxSalary;
-        this.namePensionFund = namePensionFund;
-        this.state = state;
-        this.ageWork = ageWork;
+        this.isMan = isMan;
     }
 
-    public Person() {
+    public String getName() {
+        return name;
     }
 
-    public Person(String name, int age, int growth, int weight, boolean man, int money) {
+    public void setName(String name) {
         this.name = name;
-        this.age = age;
-        this.growth = growth;
-        this.weight = weight;
-        this.man = man;
-        this.money = money;
-
     }
 
+    public int getAge() {
+        return age;
+    }
 
-    public void info() {
-        if (man) {
-            System.out.println("Его зовут: " + name + ", ему " + age + " лет, его рост составляет " + growth + " см, а вес: " + weight + " кг");
-        } else {
-            System.out.println("Её зовут: " + name + ", ей " + age + " лет, её рост составляет " + growth + " см, а вес: " + weight + " кг");
+    public void setAge(int age) {
+        if (age >= 0 && age < 65) {
+            this.age = age;
         }
+        System.err.println("Ошибка. Введенный возраст меньше нуля или больше 120");
     }
 
-    public void goWork() {
-        if (age < 18 || age > 70) {
-            System.out.println( name + " отдыхает дома");
-        } else {
-            int money1 = getMoney();
-            System.out.println(name + " работает и получает " + money1);
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        if (weight >= 0 && weight < 260) {
+            this.weight = weight;
         }
+        System.err.println("Ошибка. Введенный вес меньше нуля или больше 260");
     }
 
-
-    public int getMoney() {
-        return money*2;
+    public double getGrowth() {
+        return growth;
     }
 
-    public void pensionCalculation1() {
-        if (state) {
-            double valuePension = (minSalary + maxSalary)/2 * PENSION_FACTOR * ageWork;
-            System.out.println(name + " получает пенсию в размере " + valuePension + " евро");
-        } else {
-            double valuePension = (minSalary + maxSalary + averagePensionInStage)/3 * PENSION_FACTOR * ageWork;
-            System.out.println(name + " получает пенсию в размере " + valuePension + " евро");
+    public void setGrowth(double growth) {
+        if (growth >= 0 && growth < 260) {
+            this.growth = growth;
         }
+        System.err.println("Ошибка. Введенный рост меньше нуля или больше 260 см");
     }
+
+    public boolean getIsMan() {
+        return isMan;
     }
+
+    public boolean setIsMan() {
+        return isMan;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return age == person.age && Double.compare(person.growth, growth) == 0 && Double.compare(person.weight, weight) == 0 && isMan == person.isMan && Objects.equals(name, person.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age, growth, weight, isMan);
+    }
+
+    public abstract void die();
+
+    public abstract void goWork();
+
+    public abstract void info();
+
+}
 
 
 

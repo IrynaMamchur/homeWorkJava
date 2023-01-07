@@ -1,37 +1,21 @@
 package homeWork1;
 
 
-
 public class MainHomePerson {
 
     public static void main(String[] args) {
-
-        Person person = new Person("Andrey", 72, 182, 68, true, 500,"State Pension Fund", true, 1200, 7000, 52 );
-        Person secondPerson = new Person();
-        Person thirdPerson = new Person("Nikolya", 17, 173, 59, true, 100);
-        Person forPerson = new Person("Dmytro", 43, 174, 62, true, 1000);
-        Person fivePerson = new Person("Diana", 23, 168, 52, false, 2000);
-        Person sexPerson = new Person("Andrea", 65, 156, 58, false, 600, "Best Pension Fund", false, 2000, 6000,46 );
+        Pensioner person = new Pensioner("Andrey", 72, 1.82, 78.3, true);
+        Worker firstPerson = new Worker("Nikolya", 17, 1.73, 59, true);
+        Worker secondPerson = new Worker("Dmytro", 43, 1.74, 62, true);
+        Worker thirdPerson = new Worker("Diana", 23, 1.68, 52.4, false);
+        Pensioner forPerson = new Pensioner("Andrea", 65, 1.56, 58.3, false);
 
 
         person.info();
-        secondPerson.info();
-        thirdPerson.info();
-        forPerson.info();
-        fivePerson.info();
-        sexPerson.info();
-
-        person.goWork();
-        thirdPerson.goWork();
-        forPerson.goWork();
-        fivePerson.goWork();
-
-        System.out.println("Он получает " + forPerson.getMoney());
+        System.out.println(firstPerson.getName() + " получает " + firstPerson.getMoney(1200));
 
 
-
-        person.pensionCalculation1();
-        sexPerson.pensionCalculation1();
+        System.out.println(secondPerson.getName() + " получит пенсию в размере " + secondPerson.calculatePension(43, 7000, 1200) + " евро");
 
     }
 }
