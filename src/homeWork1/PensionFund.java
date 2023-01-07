@@ -18,6 +18,50 @@ public class PensionFund {
         this.dateOfCreation = dateOfCreation;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isState() {
+        return isState;
+    }
+
+    public void setState(boolean state) {
+        isState = state;
+    }
+
+    public int getAgeWork() {
+        return ageWork;
+    }
+
+    public void setAgeWork(int ageWork) {
+        this.ageWork = ageWork;
+    }
+
+    public double getMinSalary() {
+        return minSalary;
+    }
+
+    public void setMinSalary(double minSalary) {
+        this.minSalary = minSalary;
+    }
+
+    public double getMaxSalary() {
+        return maxSalary;
+    }
+
+    public void setMaxSalary(double maxSalary) {
+        this.maxSalary = maxSalary;
+    }
+
+    public String getDateOfCreation() {
+        return dateOfCreation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -26,6 +70,10 @@ public class PensionFund {
         return isState == that.isState && ageWork == that.ageWork && Double.compare(that.minSalary, minSalary) == 0 && Double.compare(that.maxSalary, maxSalary) == 0 && Objects.equals(name, that.name) && Objects.equals(dateOfCreation, that.dateOfCreation);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, isState, ageWork, minSalary, maxSalary, dateOfCreation);
+    }
 
 
     public double pensionCalculation(int ageWork, double maxSalary, double minSalary) {
@@ -38,15 +86,6 @@ public class PensionFund {
         }
         return averageValue * PENSION_FACTOR * ageWork;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, isState, ageWork, minSalary, maxSalary, dateOfCreation);
-    }
-
-
-
-
 
 }
 

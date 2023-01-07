@@ -1,78 +1,41 @@
 package homeWork1;
 
-import java.util.Objects;
+import java.util.Random;
 
-public class Worker extends Person {
-    private String name;
-    private int age;
-    private double growth;
-    private double weight;
-    private boolean isMan;
+
+public class Worker extends Person implements AbleToCalculatePension {
+
     private double minSalary;
     private double maxSalary;
     private int money;
 
+
     public Worker(String name, int age, double growth, double weight, boolean isMan) {
-        this.name = name;
-        this.age = age;
-        this.growth = growth;
-        this.weight = weight;
-        this.isMan = isMan;
+        super(name, age, growth, weight, isMan);
     }
 
-    public String getName() {
-        return name;
+    public double getMinSalary() {
+        return minSalary;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMinSalary(double minSalary) {
+        this.minSalary = minSalary;
     }
 
-    public int getAge() {
-        return age;
+    public double getMaxSalary() {
+        return maxSalary;
     }
 
-    public void setAge(int age) {
-        if (age >= 0 && age < 65) {
-            this.age = age;
-        }
-        System.err.println("Ошибка. Введенный возраст меньше нуля или больше 65");
-        // хотя, если работающий, то надо бы ставить возраст от 18, например. 65 поставила пока пределом для работы - потом на пенсию. В классе пенсионер поставила от 55, хотя, конечно, есть и более ранние пенсионеры))
+    public void setMaxSalary(double maxSalary) {
+        this.maxSalary = maxSalary;
     }
 
-    public double getWeight() {
-        return weight;
+    public int getMoney() {
+        return money;
     }
 
-    public void setWeight(double weight) {
-        if (weight >= 0 && weight < 260) {
-            this.weight = weight;
-        }
-        System.err.println("Ошибка. Введенный вес меньше нуля или больше 260");
-    }
-
-    public double getGrowth() {
-        return growth;
-    }
-
-    public void setGrowth(double growth) {
-        if (growth >= 0 && growth < 260) {
-            this.growth = growth;
-        }
-        System.err.println("Ошибка. Введенный рост меньше нуля или больше 260 см");
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Worker worker = (Worker) o;
-        return age == worker.age && Double.compare(worker.growth, growth) == 0 && Double.compare(worker.weight, weight) == 0 && isMan == worker.isMan && name.equals(worker.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, age, growth, weight, isMan);
+    public void setMoney(int money) {
+        this.money = money;
     }
 
     @Override
@@ -86,16 +49,27 @@ public class Worker extends Person {
 
     @Override
     public void info() {
-        if (isMan) {
-            System.out.println("Его зовут: " + name + ", ему " + age + " лет, его рост составляет " + growth + " см, а вес: " + weight + " кг");
+        if (getIsMan()) {
+            System.out.println("Его зовут: " + getName() + ", ему " + getAge() + " лет, его рост составляет " + getGrowth() + " см, а вес: " + getWeight() + " кг");
         } else {
-            System.out.println("Её зовут: " + name + ", ей " + age + " лет, её рост составляет " + growth + " см, а вес: " + weight + " кг");
+            System.out.println("Её зовут: " + getName() + ", ей " + getAge() + " лет, её рост составляет " + getGrowth() + " см, а вес: " + getWeight() + " кг");
         }
     }
 
     @Override
     public void goWork() {
-        System.out.println(name + " работает");
+        System.out.println(getName() + " работает");
     }
 
+
+    @Override
+    public double calculatePension(int age, double maxSalary, double minSalary) {
+        Random random = new Random();
+        boolean randomBoolean = random.nextBoolean();
+        String name = this.getName() + " PF";
+        int ageWork = (age - 18);
+        PensionFund firstPensionFund = new PensionFund(name, randomBoolean, "21.10.1998");
+        return firstPensionFund.pensionCalculation(ageWork, minSalary, maxSalary);
+
+    }
 }
