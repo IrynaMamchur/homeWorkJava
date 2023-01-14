@@ -5,16 +5,16 @@ import java.util.Objects;
 public class PensionFund {
     public final static double PENSION_FACTOR = 0.02;
     private String name;
-    private boolean isState;
+    private TypeOfPensionFund typeOfPensionFund;
     private int ageWork;
     private final static double AVERAGY_SALARY = 1500;
     private double minSalary;
     private double maxSalary;
     private final String dateOfCreation;
 
-    public PensionFund(String name, boolean isState, String dateOfCreation) {
+    public PensionFund(String name, TypeOfPensionFund typeOfPensionFund, String dateOfCreation) {
         this.name = name;
-        this.isState = isState;
+        this.typeOfPensionFund = typeOfPensionFund;
         this.dateOfCreation = dateOfCreation;
     }
 
@@ -26,12 +26,12 @@ public class PensionFund {
         this.name = name;
     }
 
-    public boolean isState() {
-        return isState;
+    public TypeOfPensionFund getTypeOfPensionFund() {
+        return typeOfPensionFund;
     }
 
-    public void setState(boolean state) {
-        isState = state;
+    public void setTypeOfPensionFund(TypeOfPensionFund typeOfPensionFund) {
+        this.typeOfPensionFund = typeOfPensionFund;
     }
 
     public int getAgeWork() {
@@ -67,26 +67,30 @@ public class PensionFund {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PensionFund that = (PensionFund) o;
-        return isState == that.isState && ageWork == that.ageWork && Double.compare(that.minSalary, minSalary) == 0 && Double.compare(that.maxSalary, maxSalary) == 0 && Objects.equals(name, that.name) && Objects.equals(dateOfCreation, that.dateOfCreation);
+        return Objects.equals(name, that.name) && typeOfPensionFund == that.typeOfPensionFund && Objects.equals(dateOfCreation, that.dateOfCreation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, isState, ageWork, minSalary, maxSalary, dateOfCreation);
+        return Objects.hash(name, typeOfPensionFund, dateOfCreation);
     }
 
-
     public double pensionCalculation(int ageWork, double maxSalary, double minSalary) {
-        double averageValue;
-        if (isState) {
-            averageValue = AverageValueUtils.averageValueOfTwoNumbers(minSalary, maxSalary);
-
-        } else {
-            averageValue = AverageValueUtils.averageValueOfThreeNumbers(minSalary, maxSalary, AVERAGY_SALARY);
+        double averageValue = 0;
+        TypeOfPensionFund typeOfPensionFund = getTypeOfPensionFund();
+        switch (typeOfPensionFund) {
+            case STATE:
+                averageValue = AverageValueUtils.average(minSalary, maxSalary);
+                break;
+            case NON_STATE:
+                averageValue = AverageValueUtils.average(minSalary, maxSalary, AVERAGY_SALARY);
+                break;
+            case SCAMMERS:
+                averageValue = AverageValueUtils.average(minSalary, maxSalary) *0;
+                break;
         }
         return averageValue * PENSION_FACTOR * ageWork;
     }
-
 }
 
 

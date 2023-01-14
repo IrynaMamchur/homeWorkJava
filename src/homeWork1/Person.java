@@ -10,6 +10,9 @@ public abstract class Person {
     private double growth;
     private double weight;
     private boolean isMan;
+    private Person mom;
+    private Person ded;
+    private Person[]children;
 
 
     public Person(String name, int age, double growth, double weight, boolean isMan) {
@@ -19,6 +22,13 @@ public abstract class Person {
         this.weight = weight;
         this.isMan = isMan;
     }
+
+    public abstract void die();
+
+    public abstract void goWork();
+
+    public abstract void info();
+
 
     public String getName() {
         return name;
@@ -82,11 +92,7 @@ public abstract class Person {
         return Objects.hash(name, age, growth, weight, isMan);
     }
 
-    public abstract void die();
 
-    public abstract void goWork();
-
-    public abstract void info();
 
 }
 
