@@ -1,6 +1,8 @@
 package homeWork1;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Pensioner extends Person {
@@ -8,9 +10,11 @@ public class Pensioner extends Person {
     private double pension;
     private int money;
 
-    public Pensioner(String name, int age, double growth, double weight, boolean isMan, double pension) {
-        super(name, age, growth, weight, isMan);
-    this.pension = getPension();
+    public Pensioner(String name, int age, double growth, double weight, boolean isMan, double pension, List<String> children) {
+        super(name, age, growth, weight, isMan, children);
+        this.pension = pension;
+        this.pension = getPension();
+
     }
 
     public double getPension() {
@@ -28,11 +32,13 @@ public class Pensioner extends Person {
     public void setMoney(int money) {
         this.money = money;
     }
+
     @Override
     public void die() {
-        double x = (getAge() - 50) * pension;
-        System.out.println("Этот пенсионер умер, он заработал: " + x);
+        double x = getPension() * (getAge() - 50);
+        System.out.println("Этот пенсионер умер, зато у него " + getChildren().size() + " детей и он заработал: " + x);
     }
+
     // выше переопределение. Поскольку вводится новая инфо в методе
     @Override
     public void goWork() {
@@ -48,5 +54,10 @@ public class Pensioner extends Person {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Pensioner{" +
+                '}';
+    }
 }
 

@@ -1,5 +1,8 @@
 package homeWork1;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 
@@ -11,8 +14,10 @@ public class Worker extends Person implements AbleToCalculatePension {
     private Month month;
     private Sex sex;
 
-    public Worker(String name, int age, double growth, double weight, boolean isMan) {
-        super(name, age, growth, weight, isMan);
+    private int supplementForChildren;
+
+    public Worker(String name, int age, double growth, double weight, boolean isMan, List<String> children) {
+        super(name, age, growth, weight, isMan, children);
     }
 
     public double getMinSalary() {
@@ -55,6 +60,14 @@ public class Worker extends Person implements AbleToCalculatePension {
         this.sex = sex;
     }
 
+    public int getSupplementForChildren() {
+        return supplementForChildren;
+    }
+
+    public void setSupplementForChildren(int supplementForChildren) {
+        this.supplementForChildren = supplementForChildren;
+    }
+
     @Override
     public void die() {
         System.out.println("Этот человек не дожил до пенсии");
@@ -83,9 +96,22 @@ public class Worker extends Person implements AbleToCalculatePension {
     public double calculatePension(int age, double maxSalary, double minSalary) {
         String name = this.getName() + " PF";
         int ageWork = (age - 18);
-        PensionFund firstPensionFund = new PensionFund(name, TypeOfPensionFund.NON_STATE, "21.10.1998");
-        return firstPensionFund.pensionCalculation(ageWork, minSalary, maxSalary);
-// если я правильно понимаю, то для того, чтоб сгенерировать ENUM (в том числе), мы будем учить массивы, поэтому тип вставляю вручную
+        int supplementForChildren;
+        if (getChildren().get(0).equals("null")) {
+            supplementForChildren = 0;
+        } else {
+            supplementForChildren = 200 * getChildren().size();
+        }
+        minSalary = minSalary + supplementForChildren;
+        PensionFund firstPensionFund = new PensionFund(name, TypeOfPensionFund.STATE, "21.10.1998");
+        double result = firstPensionFund.pensionCalculation(ageWork, minSalary, maxSalary);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Worker{" +
+                '}';
     }
 
     //public void setNewSalary() {

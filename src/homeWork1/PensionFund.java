@@ -1,5 +1,6 @@
 package homeWork1;
 
+import java.util.List;
 import java.util.Objects;
 
 public class PensionFund {
@@ -11,6 +12,7 @@ public class PensionFund {
     private double minSalary;
     private double maxSalary;
     private final String dateOfCreation;
+    private List<String>currencies;
 
     public PensionFund(String name, TypeOfPensionFund typeOfPensionFund, String dateOfCreation) {
         this.name = name;
@@ -86,11 +88,22 @@ public class PensionFund {
                 averageValue = AverageValueUtils.average(minSalary, maxSalary, AVERAGY_SALARY);
                 break;
             case SCAMMERS:
-                averageValue = AverageValueUtils.average(minSalary, maxSalary) *0;
+                averageValue = 0;
                 break;
         }
         return averageValue * PENSION_FACTOR * ageWork;
     }
+
+    public List<String> getCurrencies() {
+        return currencies;
+    }
+
+    public void setCurrencies(List<String> currencies) {
+        this.currencies = currencies;
+    }
+
+
+
 }
 
 

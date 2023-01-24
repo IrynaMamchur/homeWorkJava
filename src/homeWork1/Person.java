@@ -1,5 +1,8 @@
 package homeWork1;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public abstract class Person {
@@ -12,15 +15,15 @@ public abstract class Person {
     private boolean isMan;
     private Person mom;
     private Person ded;
-    private Person[]children;
+    private List<String> children;
 
-
-    public Person(String name, int age, double growth, double weight, boolean isMan) {
+    public Person(String name, int age, double growth, double weight, boolean isMan, List<String> children) {
         this.name = name;
         this.age = age;
         this.growth = growth;
         this.weight = weight;
         this.isMan = isMan;
+        this.children = children;
     }
 
     public abstract void die();
@@ -43,7 +46,7 @@ public abstract class Person {
     }
 
     public void setAge(int age) {
-        if (age >= 0 && age < 65) {
+        if (age >= 0 && age < 120) {
             this.age = age;
         }
         System.err.println("Ошибка. Введенный возраст меньше нуля или больше 120");
@@ -65,10 +68,10 @@ public abstract class Person {
     }
 
     public void setGrowth(double growth) {
-        if (growth >= 0 && growth < 260) {
+        if (growth >= 0 && growth < 2.60) {
             this.growth = growth;
         }
-        System.err.println("Ошибка. Введенный рост меньше нуля или больше 260 см");
+        System.err.println("Ошибка. Введенный рост меньше нуля или больше 2.60 м");
     }
 
     public boolean getIsMan() {
@@ -79,23 +82,27 @@ public abstract class Person {
         return isMan;
     }
 
+    public List<String> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<String> children) {
+        this.children = children;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return age == person.age && Double.compare(person.growth, growth) == 0 && Double.compare(person.weight, weight) == 0 && isMan == person.isMan && Objects.equals(name, person.name);
+        return age == person.age && Double.compare(person.growth, growth) == 0 && Double.compare(person.weight, weight) == 0 && isMan == person.isMan && Objects.equals(name, person.name) && Objects.equals(children, person.children);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, age, growth, weight, isMan);
+        return Objects.hash(name, age, growth, weight, isMan, children);
     }
-
-
-
 }
-
 
 
 
