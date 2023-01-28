@@ -1,13 +1,15 @@
 package homeWork1;
 
-public class Company {
-    private String name;
+public enum Company {
+    APPLE,
+    SAMSUNG,
+    XDI,
+    ADIDAS,
+    EUROINS,
+    TWITTER,
+    NOKIA,
+    ALDI,
+    REWE,
+    EDIKA;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

@@ -1,9 +1,6 @@
 package homeWork1;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Random;
 
 
 public class Worker extends Person implements AbleToCalculatePension {
@@ -14,11 +11,15 @@ public class Worker extends Person implements AbleToCalculatePension {
     private Month month;
     private Sex sex;
 
+    private Company company;
+
+    private static List<String> Company;
     private int supplementForChildren;
 
     public Worker(String name, int age, double growth, double weight, boolean isMan, List<String> children) {
         super(name, age, growth, weight, isMan, children);
     }
+
 
     public double getMinSalary() {
         return minSalary;
@@ -68,6 +69,19 @@ public class Worker extends Person implements AbleToCalculatePension {
         this.supplementForChildren = supplementForChildren;
     }
 
+    public homeWork1.Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(List<String> company) {
+        Company = company;
+    }
+
+    public void setCompany(homeWork1.Company company) {
+        this.company = company;
+    }
+
+
     @Override
     public void die() {
         System.out.println("Этот человек не дожил до пенсии");
@@ -108,12 +122,38 @@ public class Worker extends Person implements AbleToCalculatePension {
         return result;
     }
 
+    public static void isWorkInCompany(List<Company> workerCompany) {
+        System.out.print("Я работал в следующих компаниях: ");
+        int index = 0;
+        for (Company company : workerCompany) {
+            System.out.print(workerCompany.get(index) + ", ");
+            index++;
+        }
+        System.out.println("");
+    }
+
+
     @Override
     public String toString() {
         return "Worker{" +
                 '}';
     }
 
+
+
+
+    //First level: Не так давно мы делали в классе Worker метод, который рассчитывает пенсию.
+    //Для расчета пенсии использовался "хардкодинг", когда мы прямо в методе создавали непонятный пенсионный фонд. Сегодня от этого откажемся.
+    //
+    //
+    //1) Добавить в класс Worker поле - множество (Set) из Пенсионных фондов.
+    //2) Добавить для него гетер и сетер
+    //3) в методе расчета пенсии взять Set из пенсионных фондов и для каждого из них посчитать возможную пенсию, выбрать наиболее выгодное предложение и вернуть (return) из этого метода именно самое лучшее предложение (там, где больше всего заплатят). (как это реализовать - полностью на вашей совести)
+    //4) Создать в Main несколько работников и несколько сетов из пенсионных фондов. Заполнить каждому работнику доступные ему пенсионный фонды (см. пункт 1)
+    //5) запустить расчет пенсии
+    //
+    //
+    //Second level:
     //public void setNewSalary() {
         //Sex sex = getSex();
         //switch (sex) {
