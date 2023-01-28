@@ -1,7 +1,5 @@
 package homeWork1;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,7 +13,7 @@ public abstract class Person {
     private boolean isMan;
     private Person mom;
     private Person ded;
-    private List<String> children;
+    private static List<String> children;
 
     public Person(String name, int age, double growth, double weight, boolean isMan, List<String> children) {
         this.name = name;
@@ -32,6 +30,8 @@ public abstract class Person {
 
     public abstract void info();
 
+
+    ;
 
     public String getName() {
         return name;
@@ -82,12 +82,12 @@ public abstract class Person {
         return isMan;
     }
 
-    public List<String> getChildren() {
+    public static List<String> getChildren() {
         return children;
     }
 
-    public void setChildren(List<String> children) {
-        this.children = children;
+    public static void setChildren(List<String> children) {
+        Person.children = children;
     }
 
     @Override
@@ -95,14 +95,28 @@ public abstract class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return age == person.age && Double.compare(person.growth, growth) == 0 && Double.compare(person.weight, weight) == 0 && isMan == person.isMan && Objects.equals(name, person.name) && Objects.equals(children, person.children);
+        return age == person.age && Double.compare(person.growth, growth) == 0 && Double.compare(person.weight, weight) == 0 && isMan == person.isMan && Objects.equals(name, person.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, age, growth, weight, isMan, children);
+        return Objects.hash(name, age, growth, weight, isMan);
+    }
+
+
+    public static void isChildren() {
+        System.out.println(" У меня " + children.size() + " детей: ");
+        int index = 0;
+        for (String person : children) {
+            System.out.println(index + 1 + " " + children.get(index));
+            index++;
+        }
     }
 }
+
+
+
+
 
 
 

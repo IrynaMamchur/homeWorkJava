@@ -17,6 +17,8 @@ public class Pensioner extends Person {
 
     }
 
+    //List<String> children  children)
+
     public double getPension() {
         return pension;
     }
@@ -53,6 +55,7 @@ public class Pensioner extends Person {
             System.out.println("Её зовут: " + getName() + ", ей " + getAge() + " лет, её рост составляет " + getGrowth() + " см, а вес: " + getWeight() + " кг");
         }
     }
+
 
     @Override
     public String toString() {
