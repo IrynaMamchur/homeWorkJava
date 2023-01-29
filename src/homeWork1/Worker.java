@@ -1,6 +1,6 @@
 package homeWork1;
 
-import java.util.List;
+import java.util.*;
 
 
 public class Worker extends Person implements AbleToCalculatePension {
@@ -13,8 +13,9 @@ public class Worker extends Person implements AbleToCalculatePension {
 
     private Company company;
 
-    private static List<String> Company;
+    private static List<Company> Company;
     private int supplementForChildren;
+    private Set<PensionFund> pensionFunds;
 
     public Worker(String name, int age, double growth, double weight, boolean isMan, List<String> children) {
         super(name, age, growth, weight, isMan, children);
@@ -73,7 +74,7 @@ public class Worker extends Person implements AbleToCalculatePension {
         return company;
     }
 
-    public void setCompany(List<String> company) {
+    public static void setCompany(List<homeWork1.Company> company) {
         Company = company;
     }
 
@@ -81,6 +82,13 @@ public class Worker extends Person implements AbleToCalculatePension {
         this.company = company;
     }
 
+    public Set<PensionFund> getPensionFunds() {
+        return pensionFunds;
+    }
+
+    public void setPensionFunds(Set<PensionFund> pensionFunds) {
+        this.pensionFunds = pensionFunds;
+    }
 
     @Override
     public void die() {
@@ -107,8 +115,7 @@ public class Worker extends Person implements AbleToCalculatePension {
 
 
     @Override
-    public double calculatePension(int age, double maxSalary, double minSalary) {
-        String name = this.getName() + " PF";
+    public double calculatePension(int age, double maxSalary, double minSalary, Set<PensionFund> pensionFunds) {
         int ageWork = (age - 18);
         int supplementForChildren;
         if (getChildren().get(0).equals("null")) {
@@ -117,10 +124,21 @@ public class Worker extends Person implements AbleToCalculatePension {
             supplementForChildren = 200 * getChildren().size();
         }
         minSalary = minSalary + supplementForChildren;
-        PensionFund firstPensionFund = new PensionFund(name, TypeOfPensionFund.STATE, "21.10.1998");
-        double result = firstPensionFund.pensionCalculation(ageWork, minSalary, maxSalary);
-        return result;
+        double max = 0;
+        String pensionFundName = null;
+        for (PensionFund pensionFund : pensionFunds) {
+            double result = pensionFund.pensionCalculation(ageWork, minSalary, maxSalary);
+            if (max < result) {
+                max = result;
+                pensionFundName = String.valueOf(pensionFund.getName());
+            }
+
+        }
+        System.out.println("Наилучшее предложение у пенсионного фонда " + pensionFundName + " составляет " + max + "евро");
+        return max;
+
     }
+
 
     public static void isWorkInCompany(List<Company> workerCompany) {
         System.out.print("Я работал в следующих компаниях: ");
@@ -140,69 +158,57 @@ public class Worker extends Person implements AbleToCalculatePension {
     }
 
 
-
-
-    //First level: Не так давно мы делали в классе Worker метод, который рассчитывает пенсию.
-    //Для расчета пенсии использовался "хардкодинг", когда мы прямо в методе создавали непонятный пенсионный фонд. Сегодня от этого откажемся.
-    //
-    //
-    //1) Добавить в класс Worker поле - множество (Set) из Пенсионных фондов.
-    //2) Добавить для него гетер и сетер
-    //3) в методе расчета пенсии взять Set из пенсионных фондов и для каждого из них посчитать возможную пенсию, выбрать наиболее выгодное предложение и вернуть (return) из этого метода именно самое лучшее предложение (там, где больше всего заплатят). (как это реализовать - полностью на вашей совести)
-    //4) Создать в Main несколько работников и несколько сетов из пенсионных фондов. Заполнить каждому работнику доступные ему пенсионный фонды (см. пункт 1)
-    //5) запустить расчет пенсии
-    //
     //
     //Second level:
     //public void setNewSalary() {
-        //Sex sex = getSex();
-        //switch (sex) {
-        //  case MALE:
-        //    minSalary *= 1.5;
-        //  maxSalary *= 1.5;
-        //break; // тут ставить обязательно
-        //case FEMALE:
-        //  minSalary *= 1.6;
-        //maxSalary *= 1.6;
+    //Sex sex = getSex();
+    //switch (sex) {
+    //  case MALE:
+    //    minSalary *= 1.5;
+    //  maxSalary *= 1.5;
+    //break; // тут ставить обязательно
+    //case FEMALE:
+    //  minSalary *= 1.6;
+    //maxSalary *= 1.6;
 
 
-        //if (month.equals(Month.DECEMBER)) {
-        //minSalary *= 10;
-        // maxSalary *= 10;
-        // }else if (month.equals(Month.NOVEMBER)){
-        //      minSalary*=2;
-        //     maxSalary*=2;
-        // } else if (month.equals(Month.APRIL)){
-        // minSalary*=0;
-        //maxSalary*=0;
-        //} вместо этого - ниже пишется switch, это проще и меньше записи. От 3х записей надо делать switch
+    //if (month.equals(Month.DECEMBER)) {
+    //minSalary *= 10;
+    // maxSalary *= 10;
+    // }else if (month.equals(Month.NOVEMBER)){
+    //      minSalary*=2;
+    //     maxSalary*=2;
+    // } else if (month.equals(Month.APRIL)){
+    // minSalary*=0;
+    //maxSalary*=0;
+    //} вместо этого - ниже пишется switch, это проще и меньше записи. От 3х записей надо делать switch
 
-        // switch (month){    // вместо свича можно забить значения в ЕМЕН
-        //   case DECEMBER:
-        //     minSalary *= 10;
-        //   maxSalary *= 10;
-        // break;
-        //case NOVEMBER:
-        //  minSalary *= 2;
-        //maxSalary *= 2;
-        //break;
-        //case JANUARY:
-        //  minSalary *= 1.1;
-        //maxSalary *= 1.1;
-        // case FEBRUARY: // вместо этого default
-        //case JANUARY:
-        //case MAY:
-        //case JULY:
-        //case JUNE:
-        //default:
-        // minSalary *= 0;
-        // maxSalary *= 0;
-        //  break;
+    // switch (month){    // вместо свича можно забить значения в ЕМЕН
+    //   case DECEMBER:
+    //     minSalary *= 10;
+    //   maxSalary *= 10;
+    // break;
+    //case NOVEMBER:
+    //  minSalary *= 2;
+    //maxSalary *= 2;
+    //break;
+    //case JANUARY:
+    //  minSalary *= 1.1;
+    //maxSalary *= 1.1;
+    // case FEBRUARY: // вместо этого default
+    //case JANUARY:
+    //case MAY:
+    //case JULY:
+    //case JUNE:
+    //default:
+    // minSalary *= 0;
+    // maxSalary *= 0;
+    //  break;
 
-        //double number = month.getNumber();
-       // minSalary *= number;
-       // maxSalary *= number;
-   // }
+    //double number = month.getNumber();
+    // minSalary *= number;
+    // maxSalary *= number;
+    // }
 
 
     //if (sex.equals(Sex.MALE)){

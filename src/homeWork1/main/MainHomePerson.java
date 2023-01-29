@@ -1,12 +1,9 @@
 package homeWork1.main;
 
 
-import homeWork1.Company;
-import homeWork1.Pensioner;
-import homeWork1.Worker;
+import homeWork1.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class MainHomePerson {
 
@@ -22,8 +19,8 @@ public class MainHomePerson {
         System.out.println(firstPerson.getName() + " получает " + firstPerson.getMoney(1200));
 
 
-        System.out.println(secondPerson.getName() + " получит пенсию в размере " + secondPerson.calculatePension(40, 7000, 1200) + " евро");
-        System.out.println(firstPerson.getName() + " получит пенсию в размере " + firstPerson.calculatePension(24, 3000, 1000) + " евро");
+        // System.out.println(secondPerson.getName() + " получит пенсию в размере " + secondPerson.calculatePension(40, 7000, 1200) + " евро");
+        //System.out.println(firstPerson.getName() + " получит пенсию в размере " + firstPerson.calculatePension(24, 3000, 1000) + " евро");
         //Person[][] workers = new Person[10][10];
         // workers[5][4] = new Worker("ryt", 54, 1.73, 55, true, List.of("null"));
         //workers[3][5] = new Pensioner("Kre", 73, 1.82, 65, false, 655, List.of("Gena", "Kolya"));
@@ -31,16 +28,29 @@ public class MainHomePerson {
         person.die();
         forPerson.die();
 
+        secondPerson.isChildren();
 
         List<Company> workerCompany = List.of(Company.ADIDAS, Company.TWITTER, Company.XDI);
         secondPerson.isWorkInCompany(workerCompany);
 
+        PensionFund firstPensionFund = new PensionFund("State PF", TypeOfPensionFund.STATE, "21.10.1998");
+        PensionFund secondPensionFund = new PensionFund("Public PF", TypeOfPensionFund.NON_STATE, "21.10.1998");
+        PensionFund thirdPensionFund = new PensionFund("First PF", TypeOfPensionFund.SCAMMERS, "21.10.1998");
+        Set<PensionFund> pensionFunds = new HashSet<>();
+        pensionFunds.add(firstPensionFund);
+        pensionFunds.add(secondPensionFund);
+        pensionFunds.add(thirdPensionFund);
 
-       // Worker worker = new Worker("Rom", 52, 165, 54, true);
+        firstPerson.calculatePension(24, 3000, 1200, pensionFunds);
+        secondPerson.calculatePension(40, 7000, 1200, pensionFunds);
+        thirdPerson.calculatePension(24, 3000, 1200, pensionFunds);
+
+
+        // Worker worker = new Worker("Rom", 52, 165, 54, true);
         //worker.setMonth(Month.AUGUST);
 
 
-       // worker.setMinSalary(1500);
+        // worker.setMinSalary(1500);
         //worker.setMaxSalary(1800);
         //worker.setSex(Sex.MALE);
 
@@ -63,7 +73,7 @@ public class MainHomePerson {
 
         //System.out.println(Arrays.toString(Month.values()));
         //Month[] months = Month.values();
-       // System.out.println(months[4]);
+        // System.out.println(months[4]);
 
         //Month feb = Month.valueOf("FEBRUARY");
         //System.out.println(feb.getNumber());
@@ -73,4 +83,5 @@ public class MainHomePerson {
 
         //System.out.println(Month.APRIL);
     }
+
 }
