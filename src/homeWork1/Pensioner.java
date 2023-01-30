@@ -10,12 +10,12 @@ public class Pensioner extends Person {
     private double pension;
     private int money;
 
-    public Pensioner(String name, int age, double growth, double weight, boolean isMan, double pension, List<String> children) {
-        super(name, age, growth, weight, isMan, children);
+    public Pensioner(String name, int age, double growth, double weight, boolean isMan, double pension) {
+        super(name, age, growth, weight, isMan);
         this.pension = pension;
         this.pension = getPension();
-
     }
+
 
     public double getPension() {
         return pension;
@@ -53,6 +53,7 @@ public class Pensioner extends Person {
             System.out.println("Её зовут: " + getName() + ", ей " + getAge() + " лет, её рост составляет " + getGrowth() + " см, а вес: " + getWeight() + " кг");
         }
     }
+
 
     @Override
     public String toString() {
