@@ -17,8 +17,8 @@ public class Worker extends Person implements AbleToCalculatePension {
     private int supplementForChildren;
     private Set<PensionFund> pensionFunds;
 
-    public Worker(String name, int age, double growth, double weight, boolean isMan, List<String> children) {
-        super(name, age, growth, weight, isMan, children);
+    public Worker(String name, int age, double growth, double weight, boolean isMan) {
+        super(name, age, growth, weight, isMan);
     }
 
 
@@ -123,11 +123,11 @@ public class Worker extends Person implements AbleToCalculatePension {
         } else {
             supplementForChildren = 200 * getChildren().size();
         }
-        minSalary = minSalary + supplementForChildren;
+        supplementForChildren+= minSalary;
         double max = 0;
         String pensionFundName = null;
         for (PensionFund pensionFund : pensionFunds) {
-            double result = pensionFund.pensionCalculation(ageWork, minSalary, maxSalary);
+            double result = pensionFund.pensionCalculation(ageWork, supplementForChildren, maxSalary);
             if (max < result) {
                 max = result;
                 pensionFundName = String.valueOf(pensionFund.getName());

@@ -10,14 +10,12 @@ public class Pensioner extends Person {
     private double pension;
     private int money;
 
-    public Pensioner(String name, int age, double growth, double weight, boolean isMan, double pension, List<String> children) {
-        super(name, age, growth, weight, isMan, children);
+    public Pensioner(String name, int age, double growth, double weight, boolean isMan, double pension) {
+        super(name, age, growth, weight, isMan);
         this.pension = pension;
         this.pension = getPension();
-
     }
 
-    //List<String> children  children)
 
     public double getPension() {
         return pension;

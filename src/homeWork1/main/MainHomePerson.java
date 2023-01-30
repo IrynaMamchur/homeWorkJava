@@ -8,11 +8,11 @@ import java.util.*;
 public class MainHomePerson {
 
     public static void main(String[] args) {
-        Pensioner person = new Pensioner("Andrey", 72, 1.82, 78.3, true, 1200, List.of("Eva", "Roma", "Karl")); // ,
-        Worker firstPerson = new Worker("Nikolya", 24, 1.73, 59, true, List.of("Tina", "Lola", "Ytik")); // ,
-        Worker secondPerson = new Worker("Dmytro", 40, 1.85, 81, true, List.of("Anna", "Egor"));
-        Worker thirdPerson = new Worker("Diana", 23, 1.68, 52.4, false, List.of("Slava", "Fely", "Geyka")); // ,
-        Pensioner forPerson = new Pensioner("Andrea", 65, 1.56, 58.3, false, 800, List.of("Frank", "Koly", "Ylz")); //
+        Pensioner person = new Pensioner("Andrey", 72, 1.82, 78.3, true, 1200);
+        Worker firstPerson = new Worker("Nikolya", 24, 1.73, 59, true);
+        Worker secondPerson = new Worker("Dmytro", 40, 1.85, 81, true);
+        Worker thirdPerson = new Worker("Diana", 23, 1.68, 52.4, false);
+        Pensioner forPerson = new Pensioner("Andrea", 65, 1.56, 58.3, false, 800);
 
 
         person.info();
@@ -25,10 +25,47 @@ public class MainHomePerson {
         // workers[5][4] = new Worker("ryt", 54, 1.73, 55, true, List.of("null"));
         //workers[3][5] = new Pensioner("Kre", 73, 1.82, 65, false, 655, List.of("Gena", "Kolya"));
 
-        person.die();
-        forPerson.die();
+
+
+        List<String> listOfChildrenFirst = new ArrayList<>();
+        listOfChildrenFirst.add("Kiril");
+        listOfChildrenFirst.add("Yly");
+        listOfChildrenFirst.add("Try");
+        firstPerson.setChildren(listOfChildrenFirst);
+
+
+
+        List<String> listOfChildrenSecond = new ArrayList<>();
+        listOfChildrenSecond.add("Faz");
+        listOfChildrenSecond.add("Dolly");
+        listOfChildrenSecond.add("Sveta");
+        listOfChildrenSecond.add("Igor");
+        secondPerson.setChildren(listOfChildrenSecond);
 
         secondPerson.isChildren();
+
+        List<String> listOfChildrenThird = new ArrayList<>();
+        listOfChildrenThird.add("Galya");
+        listOfChildrenThird.add("Hill");
+        listOfChildrenThird.add("Poty");
+        listOfChildrenThird.add("Sofy");
+        listOfChildrenThird.add("Gyter");
+        thirdPerson.setChildren(listOfChildrenThird);
+
+        thirdPerson.isChildren();
+
+        List<String> listOfChildrenPerson = new ArrayList<>();
+        listOfChildrenPerson.add("Holl");
+        listOfChildrenPerson.add("Dota");
+        person.setChildren(listOfChildrenPerson);
+        person.die();
+
+        List<String> listOfChildrenForPerson = new ArrayList<>();
+        listOfChildrenForPerson.add("Frayt");
+        forPerson.setChildren(listOfChildrenForPerson);
+
+        forPerson.die();
+
 
         List<Company> workerCompany = List.of(Company.ADIDAS, Company.TWITTER, Company.XDI);
         secondPerson.isWorkInCompany(workerCompany);

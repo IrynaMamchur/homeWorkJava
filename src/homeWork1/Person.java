@@ -13,15 +13,14 @@ public abstract class Person {
     private boolean isMan;
     private Person mom;
     private Person ded;
-    private static List<String> children;
+    private static List <String> children;
 
-    public Person(String name, int age, double growth, double weight, boolean isMan, List<String> children) {
-        this.name = name;
+    public Person(String name, int age, double growth, double weight, boolean isMan){
+       this.name = name;
         this.age = age;
         this.growth = growth;
         this.weight = weight;
         this.isMan = isMan;
-        this.children = children;
     }
 
     public abstract void die();
@@ -30,8 +29,6 @@ public abstract class Person {
 
     public abstract void info();
 
-
-    ;
 
     public String getName() {
         return name;
@@ -81,6 +78,7 @@ public abstract class Person {
     public boolean setIsMan() {
         return isMan;
     }
+
 
     public static List<String> getChildren() {
         return children;
