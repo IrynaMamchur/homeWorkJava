@@ -11,16 +11,21 @@ public class Worker extends Person implements AbleToCalculatePension {
     private Month month;
     private Sex sex;
 
-    private Company company;
-
-    private static List<Company> Company;
+    private static List<Company> companyList;
     private int supplementForChildren;
     private Set<PensionFund> pensionFunds;
+
+
+
+    private static final int MONEY_PER_CHILD = 200;
+
+
+    public Worker() {
+    }
 
     public Worker(String name, int age, double growth, double weight, boolean isMan) {
         super(name, age, growth, weight, isMan);
     }
-
 
     public double getMinSalary() {
         return minSalary;
@@ -70,16 +75,12 @@ public class Worker extends Person implements AbleToCalculatePension {
         this.supplementForChildren = supplementForChildren;
     }
 
-    public homeWork1.Company getCompany() {
-        return company;
+    public static List<Company> getCompanyList() {
+        return companyList;
     }
 
-    public static void setCompany(List<homeWork1.Company> company) {
-        Company = company;
-    }
-
-    public void setCompany(homeWork1.Company company) {
-        this.company = company;
+    public static void setCompanyList(List<Company> companyList) {
+        Worker.companyList = companyList;
     }
 
     public Set<PensionFund> getPensionFunds() {
@@ -99,20 +100,6 @@ public class Worker extends Person implements AbleToCalculatePension {
         return money;
     }
 
-    @Override
-    public void info() {
-        if (getIsMan()) {
-            System.out.println("Его зовут: " + getName() + ", ему " + getAge() + " лет, его рост составляет " + getGrowth() + " см, а вес: " + getWeight() + " кг");
-        } else {
-            System.out.println("Её зовут: " + getName() + ", ей " + getAge() + " лет, её рост составляет " + getGrowth() + " см, а вес: " + getWeight() + " кг");
-        }
-    }
-
-    @Override
-    public void goWork() {
-        System.out.println(getName() + " работает");
-    }
-
 
     @Override
     public double calculatePension(int age, double maxSalary, double minSalary, Set<PensionFund> pensionFunds) {
@@ -121,7 +108,7 @@ public class Worker extends Person implements AbleToCalculatePension {
         if (getChildren().get(0).equals("null")) {
             supplementForChildren = 0;
         } else {
-            supplementForChildren = 200 * getChildren().size();
+            supplementForChildren =  MONEY_PER_CHILD* getChildren().size();
         }
         supplementForChildren+= minSalary;
         double max = 0;
@@ -139,85 +126,89 @@ public class Worker extends Person implements AbleToCalculatePension {
 
     }
 
-
-    public static void isWorkInCompany(List<Company> workerCompany) {
+    public static void infoAboutCompanies() {
         System.out.print("Я работал в следующих компаниях: ");
-        int index = 0;
-        for (Company company : workerCompany) {
-            System.out.print(workerCompany.get(index) + ", ");
-            index++;
-        }
-        System.out.println("");
-    }
+        boolean start = true;
 
+        for (Company company : companyList) {
+            if (start) {
+                System.out.print(company.getName());
+                start = false;
+            } else {
+                System.out.print(", " + company.getName());
+            }
+        }
+        System.out.println(" ");
+    }
 
     @Override
     public String toString() {
         return "Worker{" +
+                "minSalary=" + minSalary +
+                ", maxSalary=" + maxSalary +
                 '}';
     }
 
-
     //
-    //Second level:
-    //public void setNewSalary() {
-    //Sex sex = getSex();
-    //switch (sex) {
-    //  case MALE:
-    //    minSalary *= 1.5;
-    //  maxSalary *= 1.5;
-    //break; // тут ставить обязательно
-    //case FEMALE:
-    //  minSalary *= 1.6;
-    //maxSalary *= 1.6;
+        //Second level:
+        //public void setNewSalary() {
+        //Sex sex = getSex();
+        //switch (sex) {
+        //  case MALE:
+        //    minSalary *= 1.5;
+        //  maxSalary *= 1.5;
+        //break; // тут ставить обязательно
+        //case FEMALE:
+        //  minSalary *= 1.6;
+        //maxSalary *= 1.6;
 
 
-    //if (month.equals(Month.DECEMBER)) {
-    //minSalary *= 10;
-    // maxSalary *= 10;
-    // }else if (month.equals(Month.NOVEMBER)){
-    //      minSalary*=2;
-    //     maxSalary*=2;
-    // } else if (month.equals(Month.APRIL)){
-    // minSalary*=0;
-    //maxSalary*=0;
-    //} вместо этого - ниже пишется switch, это проще и меньше записи. От 3х записей надо делать switch
+        //if (month.equals(Month.DECEMBER)) {
+        //minSalary *= 10;
+        // maxSalary *= 10;
+        // }else if (month.equals(Month.NOVEMBER)){
+        //      minSalary*=2;
+        //     maxSalary*=2;
+        // } else if (month.equals(Month.APRIL)){
+        // minSalary*=0;
+        //maxSalary*=0;
+        //} вместо этого - ниже пишется switch, это проще и меньше записи. От 3х записей надо делать switch
 
-    // switch (month){    // вместо свича можно забить значения в ЕМЕН
-    //   case DECEMBER:
-    //     minSalary *= 10;
-    //   maxSalary *= 10;
-    // break;
-    //case NOVEMBER:
-    //  minSalary *= 2;
-    //maxSalary *= 2;
-    //break;
-    //case JANUARY:
-    //  minSalary *= 1.1;
-    //maxSalary *= 1.1;
-    // case FEBRUARY: // вместо этого default
-    //case JANUARY:
-    //case MAY:
-    //case JULY:
-    //case JUNE:
-    //default:
-    // minSalary *= 0;
-    // maxSalary *= 0;
-    //  break;
+        // switch (month){    // вместо свича можно забить значения в ЕМЕН
+        //   case DECEMBER:
+        //     minSalary *= 10;
+        //   maxSalary *= 10;
+        // break;
+        //case NOVEMBER:
+        //  minSalary *= 2;
+        //maxSalary *= 2;
+        //break;
+        //case JANUARY:
+        //  minSalary *= 1.1;
+        //maxSalary *= 1.1;
+        // case FEBRUARY: // вместо этого default
+        //case JANUARY:
+        //case MAY:
+        //case JULY:
+        //case JUNE:
+        //default:
+        // minSalary *= 0;
+        // maxSalary *= 0;
+        //  break;
 
-    //double number = month.getNumber();
-    // minSalary *= number;
-    // maxSalary *= number;
-    // }
-
-
-    //if (sex.equals(Sex.MALE)){
-    //  minSalary *= 1.5;
-    //maxSalary *= 1.5;
-    //} else {
-    //  minSalary *= 1.6;
-    //maxSalary *= 1.6;
-    //} выше соответствует этому
+        //double number = month.getNumber();
+        // minSalary *= number;
+        // maxSalary *= number;
+        // }
 
 
-}
+        //if (sex.equals(Sex.MALE)){
+        //  minSalary *= 1.5;
+        //maxSalary *= 1.5;
+        //} else {
+        //  minSalary *= 1.6;
+        //maxSalary *= 1.6;
+        //} выше соответствует этому
+
+
+    }

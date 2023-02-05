@@ -1,9 +1,10 @@
 package homeWork1;
 
+import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Person {
+public abstract class Person implements Comparable<Person> {
 
 
     private String name;
@@ -13,21 +14,23 @@ public abstract class Person {
     private boolean isMan;
     private Person mom;
     private Person ded;
-    private static List <String> children;
+    private static List<Person> children;
 
-    public Person(String name, int age, double growth, double weight, boolean isMan){
-       this.name = name;
+
+    public Person() {
+
+    }
+
+    public Person(String name, int age, double growth, double weight, boolean isMan) {
+        this.name = name;
         this.age = age;
         this.growth = growth;
         this.weight = weight;
         this.isMan = isMan;
     }
 
+
     public abstract void die();
-
-    public abstract void goWork();
-
-    public abstract void info();
 
 
     public String getName() {
@@ -79,12 +82,11 @@ public abstract class Person {
         return isMan;
     }
 
-
-    public static List<String> getChildren() {
+    public static List<Person> getChildren() {
         return children;
     }
 
-    public static void setChildren(List<String> children) {
+    public static void setChildren(List<Person> children) {
         Person.children = children;
     }
 
@@ -102,15 +104,51 @@ public abstract class Person {
     }
 
 
-    public static void isChildren() {
-        System.out.println(" У меня " + children.size() + " детей: ");
-        int index = 0;
-        for (String person : children) {
-            System.out.println(index + 1 + " " + children.get(index));
-            index++;
+    public void infoOfChildren() {
+        int countOfChildren = 0;
+        System.out.println("У " + getName() + " " + children.size() + " детей");
+        for (Person child : children) {
+            countOfChildren++;
+            System.out.println(countOfChildren + ") " + child.name);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", growth=" + growth +
+                ", weight=" + weight +
+                ", isMan=" + isMan +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        if (name.length() > o.getName().length()) {
+            return 1;
+        }
+        if (name.length() < o.getName().length()) {
+            return -1;
+        } else {
+            if (age > o.getAge()) {
+                return 1;
+            }
+            if (age < o.getAge()) {
+                return -1;
+            }
+        }
+        return 0;
+    }
 }
+
+
+
+
+
+
+
 
 
 
