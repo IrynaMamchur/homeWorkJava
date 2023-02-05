@@ -105,7 +105,7 @@ public class Worker extends Person implements AbleToCalculatePension {
     public double calculatePension(int age, double maxSalary, double minSalary, Set<PensionFund> pensionFunds) {
         int ageWork = (age - 18);
         int supplementForChildren;
-        if (getChildren().get(0).equals("null")) {
+        if (getChildren() == null) {
             supplementForChildren = 0;
         } else {
             supplementForChildren =  MONEY_PER_CHILD* getChildren().size();
