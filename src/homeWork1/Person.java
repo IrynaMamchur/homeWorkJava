@@ -1,11 +1,10 @@
 package homeWork1;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Person {
+public abstract class Person implements Comparable<Person> {
 
 
     private String name;
@@ -15,22 +14,23 @@ public abstract class Person {
     private boolean isMan;
     private Person mom;
     private Person ded;
-    private List<String> children;
+    private static List<Person> children;
 
-    public Person(String name, int age, double growth, double weight, boolean isMan, List<String> children) {
+
+    public Person() {
+
+    }
+
+    public Person(String name, int age, double growth, double weight, boolean isMan) {
         this.name = name;
         this.age = age;
         this.growth = growth;
         this.weight = weight;
         this.isMan = isMan;
-        this.children = children;
     }
 
+
     public abstract void die();
-
-    public abstract void goWork();
-
-    public abstract void info();
 
 
     public String getName() {
@@ -82,12 +82,12 @@ public abstract class Person {
         return isMan;
     }
 
-    public List<String> getChildren() {
+    public static List<Person> getChildren() {
         return children;
     }
 
-    public void setChildren(List<String> children) {
-        this.children = children;
+    public static void setChildren(List<Person> children) {
+        Person.children = children;
     }
 
     @Override
@@ -95,14 +95,64 @@ public abstract class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return age == person.age && Double.compare(person.growth, growth) == 0 && Double.compare(person.weight, weight) == 0 && isMan == person.isMan && Objects.equals(name, person.name) && Objects.equals(children, person.children);
+        return age == person.age && Double.compare(person.growth, growth) == 0 && Double.compare(person.weight, weight) == 0 && isMan == person.isMan && Objects.equals(name, person.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, age, growth, weight, isMan, children);
+        return Objects.hash(name, age, growth, weight, isMan);
+    }
+
+
+    public void infoOfChildren() {
+        int countOfChildren = 0;
+        System.out.println("У " + getName() + " " + children.size() + " детей");
+        for (Person child : children) {
+            countOfChildren++;
+            System.out.println(countOfChildren + ") " + child.name);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", growth=" + growth +
+                ", weight=" + weight +
+                ", isMan=" + isMan +
+                '}';
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        if (name.length() > o.getName().length()) {
+            return 1;
+        }
+        if (name.length() < o.getName().length()) {
+            return -1;
+        } else {
+            if (age > o.getAge()) {
+                return 1;
+            }
+            if (age < o.getAge()) {
+                return -1;
+            }
+        }
+        return 0;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
