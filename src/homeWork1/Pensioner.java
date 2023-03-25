@@ -10,11 +10,13 @@ public class Pensioner extends Person {
     private double pension;
     private int money;
 
-    public Pensioner(String name, int age, double growth, double weight, boolean isMan, double pension, List<String> children) {
-        super(name, age, growth, weight, isMan, children);
+    public Pensioner(String name, int age, double growth, double weight, boolean isMan, double pension) {
+        super(name, age, growth, weight, isMan);
         this.pension = pension;
         this.pension = getPension();
+    }
 
+    public Pensioner() {
     }
 
     public double getPension() {
@@ -36,28 +38,25 @@ public class Pensioner extends Person {
     @Override
     public void die() {
         double x = getPension() * (getAge() - 50);
-        System.out.println("Этот пенсионер умер, зато у него " + getChildren().size() + " детей и он заработал: " + x);
-    }
-
-    // выше переопределение. Поскольку вводится новая инфо в методе
-    @Override
-    public void goWork() {
-        System.out.println(getName() + " отдыхает дома");
-    }
-
-    @Override
-    public void info() {
-        if (getIsMan()) {
-            System.out.println("Его зовут: " + getName() + ", ему " + getAge() + " лет, его рост составляет " + getGrowth() + " см, а вес: " + getWeight() + " кг");
+        int countOfChildren = 0;
+        if (getChildren() != null) {
+            countOfChildren = getChildren().size();
+            System.out.println("Этот пенсионер умер, зато у него " + getChildren().size() + " детей и он заработал: " + x);
         } else {
-            System.out.println("Её зовут: " + getName() + ", ей " + getAge() + " лет, её рост составляет " + getGrowth() + " см, а вес: " + getWeight() + " кг");
+            System.out.println("Этот пенсионер умер и он заработал: " + x);
         }
+
+        // выше переопределение. Поскольку вводится новая инфо в методе
+
+
+
     }
 
     @Override
     public String toString() {
-        return "Pensioner{" +
+        return "classes.Pensioner{" +
+                "pension=" + pension +
                 '}';
     }
-}
 
+    }

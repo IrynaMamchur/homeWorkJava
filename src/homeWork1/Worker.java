@@ -1,9 +1,6 @@
 package homeWork1;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 
 public class Worker extends Person implements AbleToCalculatePension {
@@ -14,10 +11,20 @@ public class Worker extends Person implements AbleToCalculatePension {
     private Month month;
     private Sex sex;
 
+    private static List<Company> companyList;
     private int supplementForChildren;
+    private Set<PensionFund> pensionFunds;
 
-    public Worker(String name, int age, double growth, double weight, boolean isMan, List<String> children) {
-        super(name, age, growth, weight, isMan, children);
+
+
+    private static final int MONEY_PER_CHILD = 200;
+
+
+    public Worker() {
+    }
+
+    public Worker(String name, int age, double growth, double weight, boolean isMan) {
+        super(name, age, growth, weight, isMan);
     }
 
     public double getMinSalary() {
@@ -68,6 +75,22 @@ public class Worker extends Person implements AbleToCalculatePension {
         this.supplementForChildren = supplementForChildren;
     }
 
+    public static List<Company> getCompanyList() {
+        return companyList;
+    }
+
+    public static void setCompanyList(List<Company> companyList) {
+        Worker.companyList = companyList;
+    }
+
+    public Set<PensionFund> getPensionFunds() {
+        return pensionFunds;
+    }
+
+    public void setPensionFunds(Set<PensionFund> pensionFunds) {
+        this.pensionFunds = pensionFunds;
+    }
+
     @Override
     public void die() {
         System.out.println("Этот человек не дожил до пенсии");
@@ -77,44 +100,58 @@ public class Worker extends Person implements AbleToCalculatePension {
         return money;
     }
 
-    @Override
-    public void info() {
-        if (getIsMan()) {
-            System.out.println("Его зовут: " + getName() + ", ему " + getAge() + " лет, его рост составляет " + getGrowth() + " см, а вес: " + getWeight() + " кг");
-        } else {
-            System.out.println("Её зовут: " + getName() + ", ей " + getAge() + " лет, её рост составляет " + getGrowth() + " см, а вес: " + getWeight() + " кг");
-        }
-    }
 
     @Override
-    public void goWork() {
-        System.out.println(getName() + " работает");
-    }
-
-
-    @Override
-    public double calculatePension(int age, double maxSalary, double minSalary) {
-        String name = this.getName() + " PF";
+    public double calculatePension(int age, double maxSalary, double minSalary, Set<PensionFund> pensionFunds) {
         int ageWork = (age - 18);
         int supplementForChildren;
-        if (getChildren().get(0).equals("null")) {
+        if (getChildren() == null) {
             supplementForChildren = 0;
         } else {
-            supplementForChildren = 200 * getChildren().size();
+            supplementForChildren =  MONEY_PER_CHILD* getChildren().size();
         }
-        minSalary = minSalary + supplementForChildren;
-        PensionFund firstPensionFund = new PensionFund(name, TypeOfPensionFund.STATE, "21.10.1998");
-        double result = firstPensionFund.pensionCalculation(ageWork, minSalary, maxSalary);
-        return result;
+        supplementForChildren+= minSalary;
+        double max = 0;
+        String pensionFundName = null;
+        for (PensionFund pensionFund : pensionFunds) {
+            double result = pensionFund.pensionCalculation(ageWork, supplementForChildren, maxSalary);
+            if (max < result) {
+                max = result;
+                pensionFundName = String.valueOf(pensionFund.getName());
+            }
+
+        }
+        System.out.println("Наилучшее предложение у пенсионного фонда " + pensionFundName + " составляет " + max + "евро");
+        return max;
+
+    }
+
+    public static void infoAboutCompanies() {
+        System.out.print("Я работал в следующих компаниях: ");
+        boolean start = true;
+
+        for (Company company : companyList) {
+            if (start) {
+                System.out.print(company.getName());
+                start = false;
+            } else {
+                System.out.print(", " + company.getName());
+            }
+        }
+        System.out.println(" ");
     }
 
     @Override
     public String toString() {
         return "Worker{" +
+                "minSalary=" + minSalary +
+                ", maxSalary=" + maxSalary +
                 '}';
     }
 
-    //public void setNewSalary() {
+    //
+        //Second level:
+        //public void setNewSalary() {
         //Sex sex = getSex();
         //switch (sex) {
         //  case MALE:
@@ -160,18 +197,18 @@ public class Worker extends Person implements AbleToCalculatePension {
         //  break;
 
         //double number = month.getNumber();
-       // minSalary *= number;
-       // maxSalary *= number;
-   // }
+        // minSalary *= number;
+        // maxSalary *= number;
+        // }
 
 
-    //if (sex.equals(Sex.MALE)){
-    //  minSalary *= 1.5;
-    //maxSalary *= 1.5;
-    //} else {
-    //  minSalary *= 1.6;
-    //maxSalary *= 1.6;
-    //} выше соответствует этому
+        //if (sex.equals(Sex.MALE)){
+        //  minSalary *= 1.5;
+        //maxSalary *= 1.5;
+        //} else {
+        //  minSalary *= 1.6;
+        //maxSalary *= 1.6;
+        //} выше соответствует этому
 
 
-}
+    }
