@@ -11,13 +11,53 @@ public class PensionFund {
     private final static double AVERAGY_SALARY = 1500;
     private double minSalary;
     private double maxSalary;
-    private final String dateOfCreation;
+    private String dateOfCreation;
     private List<String>currencies;
+
+    private int dayOfCreation;
+    private int monthOfCreation;
+    private int yearOfCreation;
+
+    public int getDayOfCreation() {
+        return dayOfCreation;
+    }
+
+    public int getMonthOfCreation() {
+        return monthOfCreation;
+    }
+
+    public int getYearOfCreation() {
+        return yearOfCreation;
+    }
+
+    public void setDayOfCreation(int dayOfCreation) {
+        this.dayOfCreation = dayOfCreation;
+    }
+
+    public void setMonthOfCreation(int monthOfCreation) {
+        this.monthOfCreation = monthOfCreation;
+    }
+
+    public void setYearOfCreation(int yearOfCreation) {
+        this.yearOfCreation = yearOfCreation;
+    }
 
     public PensionFund(String name, TypeOfPensionFund typeOfPensionFund, String dateOfCreation) {
         this.name = name;
         this.typeOfPensionFund = typeOfPensionFund;
         this.dateOfCreation = dateOfCreation;
+    }
+
+    public PensionFund() {
+
+    }
+
+    public PensionFund(String name, TypeOfPensionFund typeOfPensionFund, int dayOfCreation, int monthOfCreation, int yearOfCreation) {
+        this.name = name;
+        this.typeOfPensionFund = typeOfPensionFund;
+        this.dayOfCreation = dayOfCreation;
+        this.monthOfCreation = monthOfCreation;
+        this.yearOfCreation = yearOfCreation;
     }
 
     public String getName() {
@@ -102,8 +142,16 @@ public class PensionFund {
         this.currencies = currencies;
     }
 
-
-
+    @Override
+    public String toString() {
+        return " " +
+               name +
+                ", " + typeOfPensionFund +
+                ", " + dayOfCreation+
+                "."+ monthOfCreation+
+                "."+ yearOfCreation+
+                ' ';
+    }
 }
 
 
