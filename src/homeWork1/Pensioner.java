@@ -4,7 +4,7 @@ package homeWork1;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+@HomeAnnot(value = "value")
 public class Pensioner extends Person {
 
     private double pension;
@@ -35,7 +35,6 @@ public class Pensioner extends Person {
         this.money = money;
     }
 
-    @Override
     public void die() {
         double x = getPension() * (getAge() - 50);
         int countOfChildren = 0;
