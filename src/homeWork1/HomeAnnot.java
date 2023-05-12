@@ -10,5 +10,4 @@ import static java.lang.annotation.ElementType.TYPE;
 @Target(value={TYPE, FIELD })
 public @interface HomeAnnot {
     String value();
-
 }

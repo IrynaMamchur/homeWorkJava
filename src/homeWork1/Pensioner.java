@@ -16,6 +16,7 @@ public class Pensioner extends Person {
         this.pension = getPension();
     }
 
+
     public Pensioner() {
     }
 
