@@ -1,4 +1,7 @@
-package homeWork1;
+package homeWork1.main;
+
+import homeWork1.PensionFund;
+import homeWork1.TypeOfPensionFund;
 
 public class MainPensionFund {
     public static void main(String[] args) {

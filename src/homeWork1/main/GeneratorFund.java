@@ -28,9 +28,9 @@ public class GeneratorFund {
 
         List<PensionFund> pensionFunds = new ArrayList<>();
 
-        String personString = "";
-        while (personString != null) {
-            personString = bufferedReader.readLine();
+            String personString = "";
+            while (personString != null) {
+                personString = bufferedReader.readLine();
 
 
             String name = "";

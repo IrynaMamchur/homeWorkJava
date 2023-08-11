@@ -1,4 +1,8 @@
-package homeWork1;
+package homeWork1.main;
+
+import homeWork1.Pensioner;
+import homeWork1.Person;
+import homeWork1.Worker;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -25,12 +29,12 @@ LinkedList<Integer> list3 = new LinkedList<>();
 
         //можно использовать все, кроме примитива
         // можно делать двухмерный список, но применяется крайне редко
-List<Person> people = new ArrayList<>();
-people.add(new Worker("Kal", 43, 180, 47, false, List.of("Sara", "Ravin")));
-people.add(new Pensioner("Hot", 68, 179, 61, true, 1800, List.of("Artyr")));
+//List<Person> people = new ArrayList<>();
+//people.add(new Worker("Kal", 43, 180, 47, false));
+//people.add(new Pensioner("Hot", 68, 179, 61, true, 1800));
 
-
-     System.out.println(people);
+//List.of("Sara", "Ravin")), List.of("Artyr"))
+     //System.out.println(people);
         array[0] = 1;
         array[1] = 3;
         //array[2] = 4; //добавить нельзя, поскольку всего 2 места

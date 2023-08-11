@@ -2,16 +2,16 @@ package homeWork1;
 
 import java.util.*;
 
-
+@HomeAnnot(value = "value")
 public class Worker extends Person implements AbleToCalculatePension {
 
     private double minSalary;
     private double maxSalary;
     private int money;
     private Month month;
-    private Sex sex;
 
-    private static List<Company> companyList;
+
+    private List<Company> companyList;
     private int supplementForChildren;
     private Set<PensionFund> pensionFunds;
 
@@ -42,7 +42,7 @@ public class Worker extends Person implements AbleToCalculatePension {
     public void setMaxSalary(double maxSalary) {
         this.maxSalary = maxSalary;
     }
-
+@Deprecated
     public int getMoney() {
         return money;
     }
@@ -59,13 +59,6 @@ public class Worker extends Person implements AbleToCalculatePension {
         this.month = month;
     }
 
-    public Sex getSex() {
-        return sex;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
 
     public int getSupplementForChildren() {
         return supplementForChildren;
@@ -75,12 +68,12 @@ public class Worker extends Person implements AbleToCalculatePension {
         this.supplementForChildren = supplementForChildren;
     }
 
-    public static List<Company> getCompanyList() {
+    public List<Company> getCompanyList() {
         return companyList;
     }
 
-    public static void setCompanyList(List<Company> companyList) {
-        Worker.companyList = companyList;
+    public void setCompanyList(List<Company> companyList) {
+        this.companyList = companyList;
     }
 
     public Set<PensionFund> getPensionFunds() {
@@ -91,7 +84,7 @@ public class Worker extends Person implements AbleToCalculatePension {
         this.pensionFunds = pensionFunds;
     }
 
-    @Override
+
     public void die() {
         System.out.println("Этот человек не дожил до пенсии");
     }
@@ -100,7 +93,7 @@ public class Worker extends Person implements AbleToCalculatePension {
         return money;
     }
 
-
+@Deprecated
     @Override
     public double calculatePension(int age, double maxSalary, double minSalary, Set<PensionFund> pensionFunds) {
         int ageWork = (age - 18);
@@ -111,22 +104,18 @@ public class Worker extends Person implements AbleToCalculatePension {
             supplementForChildren =  MONEY_PER_CHILD* getChildren().size();
         }
         supplementForChildren+= minSalary;
-        double max = 0;
-        String pensionFundName = null;
+        double maxPension = 0;
         for (PensionFund pensionFund : pensionFunds) {
             double result = pensionFund.pensionCalculation(ageWork, supplementForChildren, maxSalary);
-            if (max < result) {
-                max = result;
-                pensionFundName = String.valueOf(pensionFund.getName());
+            if (maxPension < result) {
+                maxPension = result;
             }
-
         }
-        System.out.println("Наилучшее предложение у пенсионного фонда " + pensionFundName + " составляет " + max + "евро");
-        return max;
-
+        return maxPension;
     }
 
-    public static void infoAboutCompanies() {
+
+    public void infoAboutCompanies() {
         System.out.print("Я работал в следующих компаниях: ");
         boolean start = true;
 

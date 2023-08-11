@@ -31,15 +31,15 @@ public class MainHomePerson {
         children.add(thirdChild);
         firstPerson.setChildren(children);
 
-        firstPerson.infoOfChildren();
+
 
         List<Person> children1 = new ArrayList<>();
         Worker firstChild1 = new Worker();
-        firstChild.setName("Faz");
+        firstChild1.setName("Faz");
         Worker secondChild1 = new Worker();
-        secondChild.setName("Dolly");
+        secondChild1.setName("Dolly");
         Worker thirdChild1 = new Worker();
-        thirdChild.setName("Sveta");
+        thirdChild1.setName("Sveta");
         Worker forChild1 = new Worker();
         forChild1.setName("Igor");
 
@@ -49,18 +49,19 @@ public class MainHomePerson {
         children1.add(forChild1);
         secondPerson.setChildren(children1);
         secondPerson.infoOfChildren();
+        firstPerson.infoOfChildren();
 
         List<Person> children2 = new ArrayList<>();
         Worker firstChild2 = new Worker();
-        firstChild.setName("Galya");
+        firstChild2.setName("Galya");
         Worker secondChild2 = new Worker();
-        secondChild.setName("Hill");
+        secondChild2.setName("Hill");
         Worker thirdChild2 = new Worker();
-        thirdChild.setName("Poty");
+        thirdChild2.setName("Poty");
         Worker forChild2 = new Worker();
         forChild2.setName("Sofy");
         Worker fifthChild2 = new Worker();
-        forChild2.setName("Gyter");
+        fifthChild2.setName("Gyter");
 
         children2.add(firstChild2);
         children2.add(secondChild2);
@@ -129,6 +130,7 @@ public class MainHomePerson {
         secondPerson.calculatePension(35, 7000, 1200, pensionFunds);
         thirdPerson.calculatePension(43, 3000, 1200, pensionFunds);
 
+        System.out.println(firstPerson.calculatePension(24, 3000, 1200, pensionFunds));
 
         Map<String, String> inMicrosoft = new HashMap<>();
         inMicrosoft.put("New year ", "31.12.");

@@ -1,10 +1,9 @@
 package homeWork1;
 
-import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Person implements Comparable<Person> {
+public class Person implements Comparable<Person> {
 
 
     private String name;
@@ -14,11 +13,29 @@ public abstract class Person implements Comparable<Person> {
     private boolean isMan;
     private Person mom;
     private Person ded;
-    private static List<Person> children;
+
+    private Sex sex;
+
+    public Sex getSex() {
+        return sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
+
+    private List<Person> children;
 
 
     public Person() {
 
+    }
+
+
+    public Person(String name, int age, Sex sex) {
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
     }
 
     public Person(String name, int age, double growth, double weight, boolean isMan) {
@@ -30,7 +47,7 @@ public abstract class Person implements Comparable<Person> {
     }
 
 
-    public abstract void die();
+    //  public abstract void die();
 
 
     public String getName() {
@@ -82,12 +99,12 @@ public abstract class Person implements Comparable<Person> {
         return isMan;
     }
 
-    public static List<Person> getChildren() {
+    public List<Person> getChildren() {
         return children;
     }
 
-    public static void setChildren(List<Person> children) {
-        Person.children = children;
+    public void setChildren(List<Person> children) {
+        this.children = children;
     }
 
     @Override
@@ -106,41 +123,69 @@ public abstract class Person implements Comparable<Person> {
 
     public void infoOfChildren() {
         int countOfChildren = 0;
+        if (children == null) {
+            System.out.println("У меня нет детей");
+            System.out.println();
+            return;
+        }
         System.out.println("У " + getName() + " " + children.size() + " детей");
         for (Person child : children) {
-            countOfChildren++;
-            System.out.println(countOfChildren + ") " + child.name);
+            if (child != null) {
+                countOfChildren++;
+                System.out.println(countOfChildren + ") " + child.name);
+            }
         }
     }
 
     @Override
+
     public String toString() {
         return "Person{" +
                 "name='" + name + '\'' +
-                ", age=" + age +
-                ", growth=" + growth +
-                ", weight=" + weight +
-                ", isMan=" + isMan +
+                ", years=" + age +
+                ", sex=" + sex +
                 '}';
     }
 
+
     @Override
     public int compareTo(Person o) {
-        if (name.length() > o.getName().length()) {
-            return 1;
+        int firstNameLen = -1;
+        int secondNameLen = -1;
+
+        if (name != null) {
+            firstNameLen = name.length();
         }
-        if (name.length() < o.getName().length()) {
-            return -1;
-        } else {
-            if (age > o.getAge()) {
-                return 1;
-            }
-            if (age < o.getAge()) {
-                return -1;
-            }
+
+        if (o.name != null) {
+            secondNameLen = o.name.length();
         }
-        return 0;
+
+        if (firstNameLen != secondNameLen) {
+            return Integer.compare(firstNameLen, secondNameLen);
+        }
+        else {
+            return Integer.compare(age, o.age);
+        }
     }
+
+
+    //(o) -> (если в коде больше 1 строки, то скобки{if (name.length() > o.getName().length()) {
+    //            return 1;
+    //        }
+    //        if (name.length() < o.getName().length()) {
+    //            return -1;
+    //        } else {
+    //            if (age > o.getAge()) {
+    //                return 1;
+    //            }
+    //            if (age < o.getAge()) {
+    //                return -1;
+    //            }
+    //        }
+    //        return 0;
+    //    }}
+
 }
 
 

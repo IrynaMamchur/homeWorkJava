@@ -3,7 +3,6 @@ package homeWork1;
 import java.util.Map;
 
 public class Company implements Comparable<Company> {
-
         private String name;
 
     private Map<String, String> holidays;
